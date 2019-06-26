@@ -1,0 +1,12 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\{{protocol}}]
+@="URL:Custom Protocol to open file in PhpStorm"
+"URL Protocol"=""
+
+[HKEY_CLASSES_ROOT\{{protocol}}\shell]
+
+[HKEY_CLASSES_ROOT\{{protocol}}\shell\open]
+
+[HKEY_CLASSES_ROOT\{{protocol}}\shell\open\command]
+@="\"{{php}}\" \"{{protocol_handler}}\" \"%1\""

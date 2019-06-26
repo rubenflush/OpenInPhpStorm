@@ -1,0 +1,21 @@
+.open-in-phpstorm {
+	position: fixed;
+	right: 10px;
+	top: 10px;
+	z-index: 99999999999999;
+}
+
+.open-in-phpstorm span {
+	color: #FFF;
+	font-weight: bold;
+	background: green;
+	border-radius: 5px;
+	padding: 5px 10px;
+	float: left;
+	margin-left: 10px;
+}
+
+.open-in-phpstorm span:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}

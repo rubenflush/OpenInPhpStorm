@@ -1,0 +1,18 @@
+body {
+	background-color: #f8f8f8;
+}
+
+.wrapper {
+	background-color: #FFF;
+	width: 700px;
+	margin: auto;
+	padding: 20px;
+}
+
+h3 {
+	margin-top: 0;
+}
+
+table, input, textarea {
+	width: 100%;
+}

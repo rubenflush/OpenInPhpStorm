@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Open in PhpStorm options page</title>
+    <script src="jquery.3.4.0.min.js"></script>
+    <link rel="stylesheet" href="options.css">
+</head>
+<body>
+    <div class="wrapper">
+
+        <form>
+            <h3>Open in PhpStorm options page</h3>
+			<strong>Hosts</strong><br/>
+			<table id="host_table">
+				<thead>
+					<tr>
+						<td>URL</td>
+						<td>Lokaal pad</td>
+						<td width="50">Laravel versie</td>
+						<td width="50">View extensie</td>
+						<td width="200">Exclude views</td>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			<button id="add_host">Extra host</button> 
+			<button id="remove_host">Host verwijderen</button><br/><br/>
+            <button>Save</button>
+        </form>
+    </div>
+
+    <script src="options.js"></script>
+</body>
+</html>
