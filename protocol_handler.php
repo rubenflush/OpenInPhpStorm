@@ -50,5 +50,3 @@ $number = $lineNumber ?  "--line $lineNumber " : '';
 $phpstorm = '"C:\Program Files (x86)\JetBrains\PhpStorm 2016.3.3\bin\phpstorm64.exe"';
 
 exec($command = "$phpstorm $number \"$location\"");
-
-//file_put_contents('D:\extension-open-in-phpstorm\test.txt', implode("\n\n", [$argv[1],$file,$command, $location)]));
