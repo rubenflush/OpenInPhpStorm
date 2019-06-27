@@ -125,11 +125,12 @@ function check(host)
 						link = file;
 					} else {
 						//get from route instead
-						link = 'app/Http/Controllers/' + $('.phpdebugbar-widgets-value.phpdebugbar-widgets-debug').first().text().match(/Controller: ([a-zA-Z0-9_\/\\]*)@/)[1].replace('\\', '/')+'.php';
-					}
+						link = 'app/Http/Controllers/' + $('.phpdebugbar-widgets-value.phpdebugbar-widgets-debug').first().text()
+								.match(/Controller: ([a-zA-Z0-9_\/\\]*)@/)[1].replace('\\', '/')+'.php';
 
-					// Add function name
-					link += '@'+document.location.pathname.split('/').pop();
+						// Add function name
+						link += '@'+document.location.pathname.split('/').pop();
+					}
 					break;
 				case 'view':
 					if(viewList.length) {
