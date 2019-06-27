@@ -10,7 +10,6 @@ chrome.storage.local.get(['hostList'], function(result ) {
 function check(host)
 {
 	var version = host['version'],
-		storagePath = host['version'] == 4 ? '' : '',
 		viewPath = host['version'] == 4 ? 'app/' : 'resources/',
 		viewExtension = '.'+host['view_extension'];
 
@@ -69,9 +68,13 @@ function check(host)
 
 			// Reformat SQL query error
 			if(errorTitle.indexOf('QueryException') !== -1) {
-				$('header').css('max-height', '1000px');
+				$('header').css('max-height', '10000px');
 				errorList = $('.exc-message span').first().text().split('SQL: ');
 				var message = errorList[1].split(')Illuminate\\')[0];
+
+				// Fixes date format errors
+				message = message.replace(/(<=|>=|>|<|=|<>|!=) (([0-9\-]{10}( ?[0-9:]{8})?))/g, '$1 \'$2\'');
+
 				$('.exc-message span').first().html(errorList[0]+'<br/><br/>'+message.substr(0,message.length-1)+'<br/><br/>');
 			}
 			
