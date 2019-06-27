@@ -1,32 +1,8 @@
 <?php
-function dd()
-{
-    foreach(func_get_args() as $value) {
-        var_dump($value);
-    }
-    sleep(10);
-    exit;
-}
 
-function findLineNumberByFunctionName(string $file, string $function)
-{
-    if(!is_file($file)) {
-        return null;
-    }
+const FROM_PROTOCOL=true;
 
-    $search = sprintf('function %s\(', $function);
-    $handle = fopen($file, 'r');
-    $line = 0;
-    while(!$endOfFile = feof($handle)) {
-        $line++;
-        $lineString = fgets($handle);
-        if(preg_match(sprintf('/%s/', $search), $lineString)) {
-            break;
-        }
-    }
-    fclose($handle);
-    return $endOfFile ? null : $line;
-}
+include 'helpers.php';
 
 $location = urldecode($argv[1]);
 $location = str_replace('/', '\\', $location);
@@ -47,6 +23,9 @@ if(preg_match('/@([A-Za-z_]*)/', $location, $matches)) {
 }
 
 $number = $lineNumber ?  "--line $lineNumber " : '';
-$phpstorm = '"C:\Program Files (x86)\JetBrains\PhpStorm 2016.3.3\bin\phpstorm64.exe"';
+
+if(!is_file($phpstorm = ini('phpstorm'))) {
+    error('Phpstorm not found at [%s]', $phpstorm);
+}
 
 exec($command = "$phpstorm $number \"$location\"");

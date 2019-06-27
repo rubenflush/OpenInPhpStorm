@@ -1,5 +1,7 @@
 <?php
 
+include 'helpers.php';
+
 info('Installing protocol');
 
 $dir = __DIR__.DIRECTORY_SEPARATOR;
@@ -37,22 +39,3 @@ if($error) {
 }
 
 info('Succesfully imported registry contents');
-
-function info($text, ...$args)
-{
-    echo sprintf($text, ...$args)."\n";
-}
-
-function error($text, ...$args)
-{
-    info($text, ...$args);
-    info('Quiting...');
-    exit;
-}
-
-function dd(...$args)
-{
-    array_map('var_dump', $args);
-    exit;
-}
-
