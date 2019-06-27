@@ -1,20 +1,30 @@
 <?php
 
+const INI = __DIR__.DIRECTORY_SEPARATOR.'settings.ini';
+
 function ini(string $key, $default = null)
 {
     global $iniContents;
     if(!$iniContents) {
-        $file = __DIR__ . '/settings.ini';
-        if(!is_file($file)) {
-            error('Ini file [%s] not found', $file);
+        if(!is_file(INI)) {
+            error('Ini file [%s] not found', INI);
         }
         $iniContents = [];
-        foreach(parse_ini_file($file) as $iniKey => $value) {
+        foreach(parse_ini_file(INI) as $iniKey => $value) {
             $iniContents[strtolower($iniKey)] = $value;
         }
     }
 
     return $iniContents[strtolower($key)] ?? $default;
+}
+
+function copyExampleIniFile()
+{
+    if(!is_file(INI)) {
+        info('Copying ini example file');
+        copy(sprintf('%s.example', INI), INI);
+    }
+    info('Ini example file already exists');
 }
 
 function dd()

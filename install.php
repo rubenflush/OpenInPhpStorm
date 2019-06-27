@@ -7,6 +7,8 @@ info('Installing protocol');
 $dir = __DIR__.DIRECTORY_SEPARATOR;
 $protocol = 'openInPhpStorm';
 
+copyExampleIniFile();
+
 info('Using protocol [%s]', $protocol);
 info('Checking protocol existence in registry');
 $registryRoot = sprintf('HKEY_CLASSES_ROOT\%s', $protocol);
