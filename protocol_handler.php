@@ -27,5 +27,4 @@ $number = $lineNumber ?  "--line $lineNumber " : '';
 if(!is_file($phpstorm = ini('phpstorm'))) {
     error('Phpstorm not found at [%s]', $phpstorm);
 }
-
-exec($command = "$phpstorm $number \"$location\"");
+exec($command = "\"$phpstorm\" $number \"$location\"");
