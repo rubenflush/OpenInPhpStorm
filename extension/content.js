@@ -53,10 +53,30 @@ function check(host)
 				return;
 			}
 
-			to = host['path'].replace(/\./g, '/') + '/' + to;
+			if (navigator.appVersion.indexOf("Win")!=-1) {
+				console.log('On windows');
 
-			console.log('Navigating to "openInPhpStorm://'  + to + '"');
-			document.location.href = 'openInPhpStorm://'+to;
+				to = host['path'].replace(/\./g, '/') + '/' + to;
+
+				console.log('Navigating to "openInPhpStorm://'  + to + '"');
+				document.location.href = 'openInPhpStorm://'+to;
+			} else {
+				console.log('On Linux or like');
+
+				to = host['path'].replace(/\./g, '/') + '/' + to;
+
+				var matches = to.match(':([0-9]+)-?([0-9]+)?');
+				var line = '';
+
+				if(matches && matches.length) {
+					line = '&line='+matches[1];
+					to = to.substr(0, to.length - matches[0].length);
+				}
+
+				path = 'phpstorm://?file='  + to + line;
+				console.log('Navigating to "'+path+'"');
+				document.location.href = path;
+			}
 		}
 
 		if(errorMsg) {
