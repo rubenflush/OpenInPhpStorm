@@ -181,7 +181,8 @@ function check(host)
 							}
 						}
 						if(viewList.length) {
-							link = viewList[0];
+							// Replace vendor
+							link = viewList[0].replace(/\/([a-zA-Z-_]*)::/, '/vendor\/$1/');
 						}
 					}
 					break;
