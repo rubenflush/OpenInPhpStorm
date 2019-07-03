@@ -1,14 +1,24 @@
-chrome.storage.local.get(['hostList'], function(result ) {
-	$.each(Object.values(result.hostList), function(key, host) {
-		if(host['url'] == document.location.host) {
-			check(host);
-			return false;
-		}
+function init() {
+	chrome.storage.local.get(['hostList'], function(result ) {
+		$.each(Object.values(result.hostList), function(key, host) {
+			if(host['url'] == document.location.host) {
+				check(host);
+				return false;
+			}
+		});
 	});
+}
+
+init();
+
+$('.phpdebugbar-datasets-switcher').change(function() {
+	init();
 });
 
 function check(host)
 {
+	$('.open-in-phpstorm').remove();
+
 	var version = host['version'],
 		viewPath = host['version'] == 4 ? 'app/' : 'resources/',
 		viewExtension = '.'+host['view_extension'];
