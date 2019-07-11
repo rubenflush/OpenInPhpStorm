@@ -1,8 +1,14 @@
 function init() {
-	chrome.storage.local.get(['hostList'], function(result ) {
+	chrome.storage.local.get(['hostList', 'phpstorm_path'], function(result ) {
+
+		if(!result.phpstorm_path) {
+			alert('Phpstorm path must be set in options page');
+			return false;
+		}
+
 		$.each(Object.values(result.hostList), function(key, host) {
 			if(host['url'] == document.location.host) {
-				check(host);
+				check(host, result.phpstorm_path);
 				return false;
 			}
 		});
@@ -15,7 +21,7 @@ $('.phpdebugbar-datasets-switcher').change(function() {
 	init();
 });
 
-function check(host)
+function check(host, phpstorm_path)
 {
 	$('.open-in-phpstorm').remove();
 
@@ -67,8 +73,9 @@ function check(host)
 
 				to = host['path'].replace(/\./g, '/') + '/' + to;
 
-				console.log('Navigating to "openInPhpStorm://'  + to + '"');
-				document.location.href = 'openInPhpStorm://'+to;
+				var toLocation = 'openInPhpStorm://'+ JSON.stringify({phpstorm_path: phpstorm_path, to: to});
+				document.location.href = toLocation;
+				console.log('Navigating to "openInPhpStorm://' + toLocation + '"');
 			} else {
 				console.log('On Linux or like');
 

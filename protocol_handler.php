@@ -4,9 +4,12 @@ const FROM_PROTOCOL=true;
 
 include 'helpers.php';
 
-$location = urldecode($argv[1]);
+$protocol = PROTOCOL.'://';
+$data = json_decode(urldecode(substr($argv[1], strlen($protocol))), true);
+$phpstorm = $data['phpstorm_path'] ?? null;
+
+$location = $data['to'];
 $location = str_replace('/', '\\', $location);
-$location = explode(':\\\\', $location, 2)[1];
 
 if(preg_match('/@([A-Za-z_]*)/', $location, $matches)) {
     $location = substr($location, 0, -strlen($matches[0]));
@@ -24,7 +27,7 @@ if(preg_match('/@([A-Za-z_]*)/', $location, $matches)) {
 
 $number = $lineNumber ?  "--line $lineNumber " : '';
 
-if(!is_file($phpstorm = ini('phpstorm'))) {
+if(!is_file($phpstorm)) {
     error('Phpstorm not found at [%s]', $phpstorm);
 }
 exec($command = "\"$phpstorm\" $number \"$location\"");

@@ -15,15 +15,16 @@ $('#remove_host').click(function() {
 });
 
 var table = $('#host_table tbody'),
-	hostList;
+	hostList,
+	phpstormInput = $('input[name=phpstorm_path]');
 	
 loadData(true);
 	
 function loadData(initial)
 {
-	chrome.storage.local.get(['hostList'], function(result) {
-		console.log(result);
+	chrome.storage.local.get(['hostList', 'phpstorm_path'], function(result) {
 		hostList = result.hostList || [];
+		phpstormInput.val(result.phpstorm_path);
 		if(initial) {
 			while(addHost(true)) {}
 		}
@@ -54,7 +55,7 @@ function storeData()
 		}
 	}
 	
-	chrome.storage.local.set({hostList: list});	
+	chrome.storage.local.set({hostList: list, phpstorm_path: phpstormInput.val()});
 }
 
 function removeHost()

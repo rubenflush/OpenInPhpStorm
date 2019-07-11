@@ -6,13 +6,10 @@ info('Installing protocol on platform [%s]', PHP_OS);
 
 $dir = __DIR__.DIRECTORY_SEPARATOR;
 if($isWindows = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-    $protocol = 'openInPhpStorm';
 
-    copyExampleIniFile();
-
-    info('Using protocol [%s]', $protocol);
+    info('Using protocol [%s]', PROTOCOL);
     info('Checking protocol existence in registry');
-    $registryRoot = sprintf('HKEY_CLASSES_ROOT\%s', $protocol);
+    $registryRoot = sprintf('HKEY_CLASSES_ROOT\%s', PROTOCOL);
     exec(sprintf('reg query %s', $registryRoot), $error);
     if($error) {
         info('Protocol already installed. Quiting...');
@@ -22,7 +19,7 @@ if($isWindows = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 
     $registryContents = file_get_contents($dir . 'registry_template.txt');
     $replacements = [
-        'protocol'         => $protocol,
+        'protocol'         => PROTOCOL,
         'php'              => PHP_BINARY,
         'protocol_handler' => $dir . 'protocol_handler.php',
     ];
