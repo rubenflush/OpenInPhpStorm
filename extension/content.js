@@ -34,7 +34,6 @@ function check(host)
 			// Regex check
 			if(check.substr(0, 1) == '/' && check.substr(-1) == '/') {
 
-
 				if((new RegExp(check.substr(1, check.length-2))).test(v) === true) {
 					process = false;
 				}
@@ -144,7 +143,7 @@ function check(host)
 		$('body').append(container);
 
 		$('.open-in-phpstorm span').click(function() {
-			var link;
+			var link = null;
 			console.log($(this).data('type'));
 			switch($(this).data('type')) {
 				case 'error':
@@ -166,23 +165,25 @@ function check(host)
 					}
 					break;
 				case 'view':
-					if(viewList.length) {
-						while(viewList.length > 1) {
-							var lists = "";
-							$.each(viewList, function(k, v) {
+					var lists = "",
+						processList = viewList;
+
+					if(processList.length) {
+						while(processList.length > 1) {
+							$.each(processList, function(k, v) {
 								lists += ' ['+k+'] ' + v + "\n";
 							});
 
 							var i = prompt("Kies view:\n"+lists, 0);
 							if(i === null) {
-								viewList = [];
-							} else if(i in viewList) {
-								viewList = [viewList[i]];
+								processList = [];
+							} else if(i in processList) {
+								processList = [processList[i]];
 							}
 						}
-						if(viewList.length) {
+						if(processList.length) {
 							// Replace vendor
-							link = viewList[0].replace(/\/([a-zA-Z-_]*)::/, '/vendor\/$1/');
+							link = processList[0].replace(/\/([a-zA-Z-_]*)::/, '/vendor\/$1/');
 						}
 					}
 					break;
