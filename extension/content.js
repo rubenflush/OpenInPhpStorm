@@ -134,12 +134,6 @@ function check(host, phpstorm_path)
 					}
 				);
 			}
-
-			setTimeout(function() {
-				if(confirm('Open in PhpStorm?')) {
-					element.click();
-				}
-			}, 500);
 		} else {
 			container.append('<span data-type="controller">Open controller</span>');
 			if(viewList.length) {
